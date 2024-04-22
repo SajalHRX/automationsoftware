@@ -1,0 +1,53 @@
+<%- include('partials/head')  %> 
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-striped" id="itemData">
+                <tr>
+                    <th>Item Id</th>
+                    <th>Item Name</th>
+                    <th>Available Quantity</th>
+                    <th>Metric Type</th>
+                    <th>Unit Price</th>
+                    <th>Category</th>
+                </tr>
+                <% for(let item of itemData.items){ %>
+                    <tr>
+                        <td><%= item.id%></td>
+                        <td><%= item.name%></td>
+                        <td><%= item.quantity%></td>
+                        <td><%= item.unit%></td>
+                        <td><%= item.unitPrice%></td>
+                        <td><%= item.category%></td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+        <div class="col">
+            <form class="form-elements" action="/home/pricing" method="post" id="updatePriceForm">
+                <div class="row form-floating">
+                    <select class="form-select form-select-sm" name="id" id="id-select">
+                        <option value="">--Select Item ID--</option>
+                        <% for(let item of itemData.items){ %>
+                            <option value="<%= item.id  %> "><%= item.id  %> </option>
+                        <% } %> 
+                    </select>
+                </div>
+                <div class="row form-floating">
+                    <input class="form-control" type="number" name = "price" min="1" max="1000000000" id="price" placeholder="item-price" required>
+                    <label for="price">Enter Updated Price</label>
+                </div>
+                <div class="row form-floating">
+                    <button class="btn btn-dark" id="submit">Update Price</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <form action="/home/manager" method="get" id="homeForm">
+        <div class="row form-floating">
+            <button class="btn btn-primary" id="home">Back to Home</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

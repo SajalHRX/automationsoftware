@@ -1,0 +1,58 @@
+<%- include('partials/head')  %> 
+
+<div id="printableArea" style="margin: auto; "></div>
+
+
+    <div class="container">
+        <div class="row">
+                <table class="table table-hover" id="billData">
+                    <tr>
+                        <th>Item Id</th>
+                        <th>Item Name</th>
+                        <th>Billed Quantity</th>
+                        <th>Metric Type</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                    </tr>
+                    <% for(let item of billObject.items){ %>
+                        <tr>
+                            <td><%= item.id%></td>
+                            <td><%= item.name%></td>
+                            <td><%= item.quantity%></td>
+                            <td><%= item.unit%></td>
+                            <td><%= item.unitPrice%></td>
+                            <td><%= item.category%></td>
+                        </tr>
+                    <% } %>
+                </table>
+        </div>
+
+        <!-- me -->
+        <!-- <form action="/home/billing/receipt" method = "post" id="receiptForm">
+            <div class="form-floating row">
+                <button class="btn btn-secondary" id="bill">Generate Bill</button>
+            </div>
+        </form>   -->
+        <!-- me -->
+
+
+
+        <div class="row form-floating">
+            <form action="/home/billing/receipt/printbill" method = "post" id="receiptBill">
+                <div class="form-floating row">
+                    <button class="btn btn-secondary" id="billprint">Generate Bill</button>
+                </div>
+           
+        </div>
+        <form action="/home/clerk" method="get" id="homeForm">
+            <div class="row form-floating">
+                <button class="btn btn-primary">Back to Home</button>
+            </div>
+        </form>
+    </div>
+<script src="./print_bill.ejs">
+</script>
+
+    
+</body>
+</html>

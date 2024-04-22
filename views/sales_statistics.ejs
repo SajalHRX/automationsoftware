@@ -1,0 +1,167 @@
+<%- include('partials/head')  %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<h1 class="heading">Sales Statistics</h1>
+<div class="container">
+    <div class="row">
+        <form action="/home/statistics" method="post">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="startYear">Start Year</label>
+                        <select class="form-select" name="startYear" id="startYear">
+                        <option selected>1998</option>
+                        <% let currentYear1 = new Date().getFullYear(); %>
+                        <% for(let i = 1998; i<= currentYear1; i++){ %>
+                            <option value="<%= i  %> "><%= i  %> </option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="endYear">End Year</label>
+                        <select class="form-select" name="endYear" id="endYear">
+                        <% let currentYear = new Date().getFullYear(); %> 
+                        <option selected><%= currentYear+1%></option>
+                        <% for(let i = 1999; i<= currentYear+1; i++){ %>
+                            <option value="<%= i  %> "><%= i  %> </option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="startMonth">Start Month</label>
+                        <select class="form-select" name="startMonth" id="startMonth">
+                        <option selected>Jan</option>
+                        <% let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                        <% for(let i = 0;i < months.length; i++){ %>
+                            <option value="<%= i  %> "><%= months[i]  %> </option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="endMonth">End Month</label>
+                        <select class="form-select" name="endMonth" id="endMonth">
+                        <option selected>Dec</option>
+                        <% let months1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                        <% for(let i = 0; i< months1.length; i++){ %>
+                            <option value="<%= i  %> "><%= months1[i] %> </option>
+                        <% } %> 
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+            
+            <div class="col">
+                <button class="btn btn-dark" id="filter">Filter</button>
+            </div>
+        </form>
+    </div>
+    <div id = "errorMessage"></div>
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped table-hover" id="salesData">
+                <tr>
+                    <th>Item Id</th>
+                    <th>Item Name</th>
+                    <th>Total Profit</th>
+                    <th>Metric Unit</th>
+                </tr>
+                <% for(let item of stats){ %>
+                    <tr>
+                        <td><%= item.id%></td>
+                        <td><%= item.name%></td>
+                        <td><%= Math.round((item.sales*item.price*0.05)*100)/100%></td>
+                        <td><%= item.unit%></td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+        <div class="row">
+            <section class="heading"><b>Profit Statistics between <%= startYear  %> and <%= endYear %></b></section>
+        </div>
+        <div class="row">
+            <canvas class="container" id="myChart1" style="width:100%;max-width:600px"></canvas>
+            <script  >
+                let xValues1 = '<%=names%>'.split(",");
+                let yValues1 = '<%=sales%>'.split(",");
+                let barColors1 = ["red", "blue", "green", "yellow", "orange", "purple", "cyan", "pink"];
+                
+                console.log(yValues1,yValues1.length);
+                new Chart("myChart1", {
+                    type: "bar",
+                    data: {
+                        labels: xValues1,
+                        datasets: [{
+                        backgroundColor: barColors1,
+                        data: yValues1
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        scales: {
+                        yAxes: [{
+                            ticks: {
+                            beginAtZero: true
+                            }
+                        }],
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="row">
+            <section class="heading"><b>Sales Statistics between <%= startYear  %> and <%= endYear %></b></section>
+        </div>
+        <div class="row">
+            <canvas class="container" id="myChart" style="width:100%;max-width:600px"></canvas>
+            <script  >
+                let xValues = '<%=names%>'.split(",");
+                let yValues = '<%=salesvalue%>'.split(",");
+                let pieColors = ["red", "blue", "green", "yellow", "orange", "purple", "cyan", "pink"];
+                
+                console.log(yValues,yValues.length);
+                new Chart("myChart", {
+                    type: "pie",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                        backgroundColor: pieColors,
+                        data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        scales: {
+                        yAxes: [{
+                            ticks: {
+                            beginAtZero: true
+                            }
+                        }],
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="row">
+            <form action="/home/statistics/print" method="post" id="printSalesForm">
+                <div class="row">
+                    <button class="btn btn-success" id="home">Print Sales Statistics</button>
+                </div>
+            </form>
+        </div>
+        <form action="/home/manager" method="get" id="homeForm">
+            <div class="row form-floating">
+                <button class="btn btn-primary" id="home">Back to Home</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

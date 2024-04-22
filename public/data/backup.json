@@ -1,0 +1,115 @@
+{
+    "items": [
+        {
+            "id": 101002,
+            "name": "oats",
+            "quantity": 200,
+            "unit": "packets",
+            "unitPrice": 45,
+            "category": "packed items" 
+        },
+        {
+            "id": 101003,
+            "name": "sugar",
+            "quantity": 50,
+            "unit": "kg",
+            "unitPrice": 100,
+            "category": "grocery" 
+        },
+        {
+            "id": 101004,
+            "name": "oranges",
+            "quantity": 300,
+            "unit": "units",
+            "unitPrice": 5,
+            "category": "fruits" 
+        },
+        {
+            "id": 101005,
+            "name": "apples",
+            "quantity": 100,
+            "unit": "units",
+            "unitPrice": 30,
+            "category": "fruits" 
+        }
+    ],
+    "sales": [
+        {
+            "txnNo" : 220020,
+            "txnDate" : "2020-09-27",
+            "txnTime" : "20:09 IST",
+            "salesItems" : [
+                {
+                    "id": 101005,
+                    "name": "apples",
+                    "quantity": 20,
+                    "unit": "units",
+                    "unitPrice": 20,
+                    "category": "fruits" 
+                },
+                {
+                    "id": 101004,
+                    "name": "oranges",
+                    "quantity": 10,
+                    "unit": "units",
+                    "unitPrice": 5,
+                    "category": "fruits" 
+                },
+                {
+                    "id": 101002,
+                    "name": "oats",
+                    "quantity": 5,
+                    "unit": "packets",
+                    "unitPrice": 35,
+                    "category": "packed items"
+                }
+            ]
+        },
+        {
+            "txnNo" : 220021,
+            "txnDate" : "2021-09-21",
+            "txnTime" : "21:09 IST",
+            "salesItems" : [
+                {
+                    "id": 101004,
+                    "name": "oranges",
+                    "quantity": 10,
+                    "unit": "units",
+                    "unitPrice": 5,
+                    "category": "fruits" 
+                },
+                {
+                    "id": 101002,
+                    "name": "oats",
+                    "quantity": 5,
+                    "unit": "packets",
+                    "unitPrice": 35,
+                    "category": "packed items"
+                }
+            ]
+        },
+        {
+            "txnNo" : 220023,
+            "txnDate" : "2022-06-11",
+            "txnTime" : "20:09 IST",
+            "salesItems" : [
+                {
+                    "id": 101005,
+                    "name": "apples",
+                    "quantity": 30,
+                    "unit": "units",
+                    "unitPrice": 20,
+                    "category": "fruits" 
+                },
+                {
+                    "id": 101002,
+                    "name": "oats",
+                    "quantity": 5,
+                    "unit": "packets",
+                    "unitPrice": 35,
+                    "category": "packed items"
+                }
+            ]
+        }
+    ]
+}

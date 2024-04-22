@@ -1,0 +1,64 @@
+<%- include('partials/head')  %>
+<h1 class="heading">Welcome to the Billing Section</h1> 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover" id="billData">
+                    <tr>
+                        <th>Item Id</th>
+                        <th>Item Name</th>
+                        <th>Billed Quantity</th>
+                        <th>Metric Type</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                    </tr>
+                    <% for(let item of billObject.items){ %>
+                        <tr>
+                            <td><%= item.id%></td>
+                            <td><%= item.name%></td>
+                            <td><%= item.quantity%></td>
+                            <td><%= item.unit%></td>
+                            <td><%= item.unitPrice%></td>
+                            <td><%= item.category%></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+            <div class="col">
+                <form class = "form-elements form-billing" action="/home/billing" method="post" id="billItemsForm">
+                    <div class="row form-floating">
+                        <select class="form-select form-select-sm" name="itemId" id="id-select" required>
+                            <option value="">Select  Sales Item ID</option>
+                            <% for(let item of itemData.items){ %>
+                                <option value="<%= item.id  %> "><%= item.id  %> </option>
+                            <% } %> 
+                        </select>
+                    </div>
+                    <div class="row form-floating">
+                        <input class="form-control" type="number" name = "qty" id="qty" placeholder="item-quantity" required>
+                        <label for="qty">Quantity</label>
+                    </div>
+                    <div class="row">
+                        <input class="btn-check" type="checkbox" name = "scanned" id="scanned" autocapitalize="off" required>
+                        <label class="btn btn-outline-secondary" for="scanned">Bar Code Scanned</label>
+                    </div>
+                    <div id="errorMsg"></div>
+                    <div class="row form-floating">
+                        <button class="btn btn-dark" id="add">Add</button>
+                    </div>
+                </form>
+            </div>
+            <form action="/home/billing/receipt" method = "post" id="receiptForm">
+                <div class="form-floating row">
+                    <button class="btn btn-secondary" id="bill">Generate Bill</button>
+                </div>
+            </form>    
+        </div>
+        <form action="/home/clerk" method="get" id="homeForm">
+            <div class="form-floating row">
+                <button class="btn btn-primary" id="home">Back to Home</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
